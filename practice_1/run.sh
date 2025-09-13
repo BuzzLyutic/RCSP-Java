@@ -1,59 +1,50 @@
 #!/bin/bash
 
-# Цвета для вывода
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 MAGENTA='\033[0;35m'
 CYAN='\033[0;36m'
-NC='\033[0m' # No Color
+NC='\033[0m'
 
 clear
 
-echo -e "${CYAN}╔══════════════════════════════════════════╗${NC}"
-echo -e "${CYAN}║   МНОГОПОТОЧНОЕ ПРОГРАММИРОВАНИЕ В JAVA  ║${NC}"
-echo -e "${CYAN}╚══════════════════════════════════════════╝${NC}"
 echo
 
-# Создание директории для скомпилированных файлов
 mkdir -p out
 
-# Компиляция всех заданий
 echo -e "${YELLOW}Компиляция исходного кода...${NC}"
 
-# Компиляция задания 1
 if [ -d "src/main/java/task1" ]; then
     javac -d out src/main/java/task1/*.java 2>/dev/null
     if [ $? -eq 0 ]; then
-        echo -e "${GREEN}✓${NC} Задание 1 скомпилировано"
+        echo -e "Задание 1 скомпилировано"
     else
-        echo -e "${RED}✗${NC} Ошибка компиляции Задания 1"
+        echo -e "Ошибка компиляции Задания 1"
     fi
 fi
 
-# Компиляция задания 2
 if [ -f "src/main/java/task2/Task2Main.java" ]; then
     javac -d out src/main/java/task2/*.java 2>/dev/null
     if [ $? -eq 0 ]; then
-        echo -e "${GREEN}✓${NC} Задание 2 скомпилировано"
+        echo -e "Задание 2 скомпилировано"
     else
-        echo -e "${RED}✗${NC} Ошибка компиляции Задания 2"
+        echo -e "Ошибка компиляции Задания 2"
     fi
 fi
 
-# Компиляция задания 3
 if [ -d "src/main/java/task3" ]; then
     javac -d out src/main/java/task3/*.java 2>/dev/null
     if [ $? -eq 0 ]; then
-        echo -e "${GREEN}✓${NC} Задание 3 скомпилировано"
+        echo -e "Задание 3 скомпилировано"
     else
-        echo -e "${RED}✗${NC} Ошибка компиляции Задания 3"
+        echo -e "Ошибка компиляции Задания 3"
     fi
 fi
 
 echo
-echo -e "${BLUE}════════════════════════════════════════════${NC}"
+echo -e "════════════════════════════════════════════${NC}"
 echo
 
 # Меню выбора задания

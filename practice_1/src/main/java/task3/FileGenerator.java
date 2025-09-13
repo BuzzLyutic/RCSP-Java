@@ -1,6 +1,5 @@
 package main.java.task3;
 
-// src/main/java/task3/FileGenerator.java
 
 import java.util.Random;
 import java.util.concurrent.BlockingQueue;
@@ -21,26 +20,23 @@ public class FileGenerator implements Runnable {
     
     @Override
     public void run() {
-        System.out.println("🚀 Генератор файлов запущен");
+        System.out.println("Генератор файлов запущен");
         
         while (running.get() && !Thread.currentThread().isInterrupted()) {
             try {
-                // Генерируем новый файл
                 File file = generateRandomFile();
                 
-                // Пытаемся добавить в очередь с таймаутом
                 boolean added = queue.offer(file, 100, TimeUnit.MILLISECONDS);
                 
                 if (added) {
                     generatedCount.incrementAndGet();
-                    System.out.println("➕ Сгенерирован: " + file + 
+                    System.out.println("Сгенерирован: " + file + 
                                      " | Очередь: " + queue.size() + "/5");
                 } else {
                     rejectedCount.incrementAndGet();
-                    System.out.println("⚠️  Очередь полна! Файл отклонен: " + file);
+                    System.out.println("Очередь полна. Файл отклонен: " + file);
                 }
                 
-                // Задержка между генерациями (100-1000 мс)
                 int delay = random.nextInt(900) + 100;
                 Thread.sleep(delay);
                 
@@ -50,16 +46,14 @@ public class FileGenerator implements Runnable {
             }
         }
         
-        System.out.println("🛑 Генератор файлов остановлен");
+        System.out.println("Генератор файлов остановлен");
         printStatistics();
     }
     
     private File generateRandomFile() {
-        // Случайный тип файла
         File.FileType[] types = File.FileType.values();
         File.FileType type = types[random.nextInt(types.length)];
         
-        // Случайный размер от 10 до 100
         int size = random.nextInt(91) + 10;
         
         return new File(type, size);
@@ -70,7 +64,7 @@ public class FileGenerator implements Runnable {
     }
     
     public void printStatistics() {
-        System.out.println("📊 Статистика генератора:");
+        System.out.println("Статистика генератора:");
         System.out.println("   • Сгенерировано файлов: " + generatedCount.get());
         System.out.println("   • Отклонено файлов: " + rejectedCount.get());
     }

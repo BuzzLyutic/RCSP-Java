@@ -1,17 +1,15 @@
 package main.java.task3;
 
-// src/main/java/task3/File.java
 
 import java.util.concurrent.atomic.AtomicLong;
 
 public class File {
-    // Счетчик для уникальных ID файлов
     private static final AtomicLong ID_GENERATOR = new AtomicLong(0);
     
     public enum FileType {
-        XML("XML", "🟦"),
-        JSON("JSON", "🟩"),
-        XLS("XLS", "🟨");
+        XML("XML", ""),
+        JSON("JSON", ""),
+        XLS("XLS", "");
         
         private final String name;
         private final String icon;
