@@ -1,4 +1,4 @@
-package main.java.task3;
+package task3;
 
 import java.io.*;
 import java.nio.*;
@@ -55,22 +55,17 @@ public class ChecksumCalculator {
             while (channel.read(buffer) != -1) {
                 buffer.flip();
                 
-                // Обработка байтов с использованием битовых операций
                 while (buffer.hasRemaining()) {
-                    // Читаем байт и применяем битовую маску
                     int byteValue = buffer.get() & 0xFF;
                     
-                    // Добавляем к сумме
                     sum = (sum + byteValue) & 0xFFFF;
                     
-                    // Циклический сдвиг для лучшего распределения
                     sum = ((sum << 1) | (sum >> 15)) & 0xFFFF;
                 }
                 
                 buffer.clear();
             }
             
-            // Инвертируем биты для финальной суммы
             return (short)(~sum & 0xFFFF);
         }
     }
@@ -78,11 +73,9 @@ public class ChecksumCalculator {
     private static void demonstrateChecksum() throws IOException {
         System.out.println("\nДемонстрация изменения контрольной суммы:");
         
-        // Изменяем файл
         Path path = Paths.get(TEST_FILE);
         String original = Files.readString(path);
         
-        // Добавляем один символ
         Files.writeString(path, original + "!");
         short newChecksum = calculate16BitChecksum(TEST_FILE);
         
@@ -91,7 +84,6 @@ public class ChecksumCalculator {
             String.format("0x%04X", newChecksum & 0xFFFF));
         System.out.println("  Контрольная сумма изменилась!");
         
-        // Восстанавливаем
         Files.writeString(path, original);
         short restoredChecksum = calculate16BitChecksum(TEST_FILE);
         System.out.println("\nПосле восстановления:");

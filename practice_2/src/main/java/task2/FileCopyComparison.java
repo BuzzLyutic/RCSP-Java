@@ -1,4 +1,4 @@
-package main.java.task2;
+package task2;
 
 import java.io.*;
 import java.nio.channels.FileChannel;
@@ -48,13 +48,11 @@ public class FileCopyComparison {
         // Метод 4
         testFilesClass();
         
-        printSummary();
     }
     
     private static void testFileStreams() throws IOException {
         System.out.println("1. FileInputStream/FileOutputStream");
-        System.out.println("   Классический способ через потоки");
-        
+
         Files.deleteIfExists(Paths.get(DEST));
         long start = System.currentTimeMillis();
         
@@ -74,8 +72,7 @@ public class FileCopyComparison {
     
     private static long testFileChannel() throws IOException {
         System.out.println("2. FileChannel (NIO)");
-        System.out.println("   Прямая передача между каналами");
-        
+
         Files.deleteIfExists(Paths.get(DEST));
         long start = System.currentTimeMillis();
         
@@ -99,8 +96,7 @@ public class FileCopyComparison {
     
     private static void testApacheCommonsIO() throws IOException {
         System.out.println("3. Apache Commons IO");
-        System.out.println("   Внешняя библиотека");
-        
+
         Files.deleteIfExists(Paths.get(DEST));
         long start = System.currentTimeMillis();
         
@@ -112,8 +108,7 @@ public class FileCopyComparison {
     
     private static void testFilesClass() throws IOException {
         System.out.println("4. Files.copy() (NIO.2)");
-        System.out.println("   Современный Java API");
-        
+
         Files.deleteIfExists(Paths.get(DEST));
         long start = System.currentTimeMillis();
         
@@ -122,15 +117,7 @@ public class FileCopyComparison {
         long time = System.currentTimeMillis() - start;
         System.out.println("   Время: " + time + " мс\n");
     }
-    
-    private static void printSummary() {
-        System.out.println("ВЫВОДЫ:");
-        System.out.println("FileChannel обычно самый быстрый");
-        System.out.println("Files.copy() удобен и эффективен");
-        System.out.println("FileStreams работает, но медленнее");
-        System.out.println("Apache Commons IO удобен для сложных операций");
-    }
-    
+
     private static void cleanup() throws IOException {
         Files.deleteIfExists(Paths.get(SOURCE));
         Files.deleteIfExists(Paths.get(DEST));

@@ -1,4 +1,4 @@
-package main.java.task1;
+package task1;
 
 import java.nio.file.*;
 import java.io.IOException;
@@ -19,14 +19,11 @@ public class FileReaderTask {
         try {
             Path path = Paths.get(TEST_FILE);
             Files.createDirectories(path.getParent());
-            
-            String content = """
-                Строка 1: Это тестовый файл для демонстрации java.nio
-                Строка 2: Вторая строка с данными
-                Строка 3: Числовые данные: 12345, 67890
-                Строка 4: Специальные символы: @#$%^&*()
-                Строка 5: Последняя строка файла
-                """;
+
+            String content = "Первая строка текстового файла\n" +
+                    "Вторая строка с числами: 12345\n" +
+                    "Третья строка со спецсимволами: @#$%\n" +
+                    "Четвертая строка - последняя\n";
             
             Files.writeString(path, content, StandardCharsets.UTF_8);
             System.out.println("Тестовый файл создан: " + TEST_FILE);

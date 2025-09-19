@@ -1,4 +1,4 @@
-package main.java.task4;
+package task4;
 
 import java.io.*;
 import java.nio.file.*;
@@ -22,19 +22,17 @@ public class DirectoryWatcher {
     }
     
     public static void main(String[] args) {
-        System.out.println("ЗАДАНИЕ 4: Мониторинг директории");
+        System.out.println("Задание 4: Мониторинг директории");
         
         try {
             Path dir = Paths.get(WATCH_DIR);
             Files.createDirectories(dir);
             
             System.out.println("Наблюдение за: " + dir.toAbsolutePath());
-            System.out.println("\nИнструкция:");
-            System.out.println("1. Создайте файл в папке " + WATCH_DIR);
+            System.out.println("\n1. Создайте файл в папке " + WATCH_DIR);
             System.out.println("2. Измените его содержимое");
             System.out.println("3. Удалите файл");
-            System.out.println("\nНажмите Ctrl+C для выхода\n");
-            
+
             startWatching(dir);
             
         } catch (Exception e) {
@@ -43,7 +41,6 @@ public class DirectoryWatcher {
     }
     
     private static void startWatching(Path dir) throws Exception {
-        // Сканируем существующие файлы
         scanDirectory(dir);
         
         try (WatchService watcher = FileSystems.getDefault().newWatchService()) {
@@ -68,7 +65,7 @@ public class DirectoryWatcher {
                     } else if (kind == StandardWatchEventKinds.ENTRY_DELETE) {
                         handleDelete(fullPath);
                     }
-                    
+
                 }
                 
                 if (!key.reset()) break;
@@ -87,7 +84,7 @@ public class DirectoryWatcher {
     }
     
     private static void handleCreate(Path file) {
-        System.out.println("СОЗДАН ФАЙЛ: " + file.getFileName());
+        System.out.println("Создан файл: " + file.getFileName());
         
         try {
             Thread.sleep(100); // Ждем завершения создания
@@ -103,7 +100,7 @@ public class DirectoryWatcher {
     }
     
     private static void handleModify(Path file) {
-        System.out.println("ИЗМЕНЕН ФАЙЛ: " + file.getFileName());
+        System.out.println("Изменен файл: " + file.getFileName());
         
         try {
             Thread.sleep(100);
@@ -124,7 +121,7 @@ public class DirectoryWatcher {
     }
     
     private static void handleDelete(Path file) {
-        System.out.println("УДАЛЕН ФАЙЛ: " + file.getFileName());
+        System.out.println("Удален файл: " + file.getFileName());
         
         FileSnapshot snapshot = snapshots.get(file);
         if (snapshot != null) {
