@@ -1,0 +1,104 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'com.fileoperations'
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'commons-io:commons-io:2.15.0'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+task createTestDirs {
+    doLast {
+        mkdir 'test_files'
+        mkdir 'test_files/watch_dir'
+    }
+}
+
+task runTask1(type: JavaExec) {
+    group = 'File Operations Tasks'
+    description = 'Задание 1: Чтение файла через java.nio'
+    
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'task1.FileReaderTask'
+    
+    dependsOn createTestDirs
+    dependsOn classes
+}
+
+task runTask2(type: JavaExec) {
+    group = 'File Operations Tasks'
+    description = 'Задание 2: Сравнение методов копирования'
+    
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'task2.FileCopyComparison'
+    
+    jvmArgs = ['-Xmx512m']
+    
+    dependsOn createTestDirs
+    dependsOn classes
+}
+
+task runTask3(type: JavaExec) {
+    group = 'File Operations Tasks'
+    description = 'Задание 3: Вычисление контрольной суммы'
+    
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'task3.ChecksumCalculator'
+    
+    dependsOn createTestDirs
+    dependsOn classes
+}
+
+task runTask4(type: JavaExec) {
+    group = 'File Operations Tasks'
+    description = 'Задание 4: Мониторинг директории'
+    
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'task4.DirectoryWatcher'
+    
+    standardInput = System.in
+    
+    dependsOn createTestDirs
+    dependsOn classes
+}
+
+task runAll {
+    group = 'File Operations Tasks'
+    description = 'Запустить все задания последовательно'
+    
+    dependsOn runTask1
+    dependsOn runTask2
+    dependsOn runTask3
+    
+    doLast {
+        println '\n' + '='*50
+        println 'Все задания выполнены'
+        println 'Задание 4 запустите отдельно командой: gradle runTask4'
+        println '='*50
+    }
+}
+
+task cleanTestFiles(type: Delete) {
+    group = 'File Operations Tasks'
+    description = 'Удалить все тестовые файлы'
+    
+    delete 'test_files'
+}
+
+defaultTasks 'runAll'
