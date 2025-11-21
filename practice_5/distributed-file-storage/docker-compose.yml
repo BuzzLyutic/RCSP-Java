@@ -1,0 +1,92 @@
+version: '3.8'
+
+services:
+  node1:
+    build: .
+    container_name: dfs-node1
+    ports:
+      - "8081:8080"
+    environment:
+      - SERVER_PORT=8080
+      - NODE_ID=node-1
+      - NODE_PEERS=node-2@node2:8080,node-3@node3:8080,node-4@node4:8080
+      - STORAGE_LOCATION=/app/storage
+    volumes:
+      - node1-storage:/app/storage
+    networks:
+      - dfs-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  node2:
+    build: .
+    container_name: dfs-node2
+    ports:
+      - "8082:8080"
+    environment:
+      - SERVER_PORT=8080
+      - NODE_ID=node-2
+      - NODE_PEERS=node-1@node1:8080,node-3@node3:8080,node-4@node4:8080
+      - STORAGE_LOCATION=/app/storage
+    volumes:
+      - node2-storage:/app/storage
+    networks:
+      - dfs-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  node3:
+    build: .
+    container_name: dfs-node3
+    ports:
+      - "8083:8080"
+    environment:
+      - SERVER_PORT=8080
+      - NODE_ID=node-3
+      - NODE_PEERS=node-1@node1:8080,node-2@node2:8080,node-4@node4:8080
+      - STORAGE_LOCATION=/app/storage
+    volumes:
+      - node3-storage:/app/storage
+    networks:
+      - dfs-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  node4:
+    build: .
+    container_name: dfs-node4
+    ports:
+      - "8084:8080"
+    environment:
+      - SERVER_PORT=8080
+      - NODE_ID=node-4
+      - NODE_PEERS=node-1@node1:8080,node-2@node2:8080,node-3@node3:8080
+      - STORAGE_LOCATION=/app/storage
+    volumes:
+      - node4-storage:/app/storage
+    networks:
+      - dfs-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  node1-storage:
+  node2-storage:
+  node3-storage:
+  node4-storage:
+
+networks:
+  dfs-network:
+    driver: bridge
