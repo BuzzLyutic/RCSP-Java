@@ -1,0 +1,22 @@
+spring:
+  rsocket:
+    server:
+      port: 7000
+      transport: tcp
+
+  r2dbc:
+    url: r2dbc:h2:mem:///testdb
+    username: sa
+    password:
+
+  sql:
+    init:
+      mode: always
+
+server:
+  port: 8080
+
+logging:
+  level:
+    io.rsocket: DEBUG
+    com.example: DEBUG

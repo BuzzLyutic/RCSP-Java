@@ -1,0 +1,8 @@
+spring:
+  main:
+    web-application-type: none  # Отключаем веб-сервер
+
+logging:
+  level:
+    root: WARN
+    com.example: INFO
