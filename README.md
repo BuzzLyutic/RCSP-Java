@@ -183,7 +183,7 @@
 
 ---
 
-### [📙 ПР №7: Реактивный REST API на Spring WebFlux](./practice_7/README.md)
+### [📙 ПР №7: Реактивный REST API на Spring WebFlux](./practice_7/space/README.md)
 
 <table>
 <tr>
