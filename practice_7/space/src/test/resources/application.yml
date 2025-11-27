@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: test
+
+  r2dbc:
+    url: r2dbc:h2:mem:///testdb;DB_CLOSE_DELAY=-1
+    username: sa
+    password:

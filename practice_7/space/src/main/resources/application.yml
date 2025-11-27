@@ -1,0 +1,8 @@
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5433/spacedb
+    username: cosmo
+    password: rocket
+
+server:
+  port: 8080

@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: space-db
+    environment:
+      POSTGRES_DB: spacedb
+      POSTGRES_USER: cosmo
+      POSTGRES_PASSWORD: rocket
+    ports:
+      - "5433:5432"
